@@ -9,7 +9,11 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.example.quizjogoquiz.view.AddQuestionScreen
+import com.example.quizjogoquiz.view.CreateQuizScreen
+import com.example.quizjogoquiz.view.QuizListScreen
 import com.example.quizjogoquiz.view.QuizTakingScreen
+import com.example.quizjogoquiz.view.ResultScreen
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -62,10 +66,7 @@ class MainActivity : ComponentActivity() {
                     val quizId = backStackEntry.arguments?.getString("quizId") ?: ""
                     AddQuestionScreen(navController = navController, quizId = quizId)
                 }
-
             }
-
-
         }
     }
 }
