@@ -34,7 +34,7 @@ class MainActivity : ComponentActivity() {
                 composable(
                     route = "quizTaking/{quizId}",
                     arguments = listOf(navArgument("quizId") {
-                        type = NavType.Companion.StringType
+                        type = NavType.StringType
                     })
                 ) { backStackEntry ->
                     val quizId = backStackEntry.arguments?.getString("quizId") ?: ""
@@ -44,8 +44,8 @@ class MainActivity : ComponentActivity() {
                 composable(
                     route = "quizResults/{score}/{total}",
                     arguments = listOf(
-                        navArgument("score") { type = NavType.Companion.IntType },
-                        navArgument("total") { type = NavType.Companion.IntType }
+                        navArgument("score") { type = NavType.IntType },
+                        navArgument("total") { type = NavType.IntType }
                     )
 
                 ) { backStackEntry ->
@@ -60,7 +60,7 @@ class MainActivity : ComponentActivity() {
                 composable(
                     route = "addQuestion/{quizId}",
                     arguments = listOf(navArgument("quizId") {
-                        type = NavType.Companion.StringType
+                        type = NavType.StringType
                     })
                 ) { backStackEntry ->
                     val quizId = backStackEntry.arguments?.getString("quizId") ?: ""

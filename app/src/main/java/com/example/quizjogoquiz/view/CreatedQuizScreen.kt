@@ -49,7 +49,6 @@ fun CreateQuizScreen(navController: NavController){
                 .padding(16.dp),
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-            // Campo de Título
             OutlinedTextField(
                 value = title,
                 onValueChange = { title = it },
@@ -58,7 +57,6 @@ fun CreateQuizScreen(navController: NavController){
                 singleLine = true
             )
 
-            // Campo de Descrição
             OutlinedTextField(
                 value = description,
                 onValueChange = { description = it },
@@ -70,11 +68,8 @@ fun CreateQuizScreen(navController: NavController){
                 onClick = {
                     if (title.isNotBlank() && description.isNotBlank()) {
                         scope.launch {
-                            // 1. Salva o quiz no Firebase
                             val newQuizId = quizRepository.saveQuizHeader(title, description)
-
                             if (newQuizId != null) {
-                                // 2. Navega para a tela de adicionar perguntas
                                 navController.navigate("addQuestion/$newQuizId")
                             } else {
                                 Toast.makeText(context, "Erro ao salvar quiz.", Toast.LENGTH_SHORT).show()

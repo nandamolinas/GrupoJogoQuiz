@@ -14,10 +14,9 @@ class QuizDataSource {
 
     private val _quizList = MutableStateFlow<List<Quiz>>(emptyList())
 
-    // 1. Esta função AGORA SÓ RETORNA O FLOW
     fun getQuizListFlow(): Flow<List<Quiz>> = _quizList
 
-    // 2. Esta função SÓ BUSCA OS DADOS e atualiza o flow
+
     fun fetchAvailableQuizzes() {
         db.collection("quizzes").get().addOnCompleteListener { task ->
             if (task.isSuccessful) {
@@ -26,7 +25,7 @@ class QuizDataSource {
                 }
                 _quizList.value = quizzes
             } else {
-                // ADICIONAMOS ISSO PARA VER ERROS NO LOGCAT
+
                 Log.e("QuizDataSource", "Erro ao buscar quizzes.", task.exception)
             }
         }
@@ -36,13 +35,12 @@ class QuizDataSource {
         return try {
             val task = db.collection("quizzes").document(quizId).collection("questions")
                 .get()
-                .await() // Usa .await() para esperar a resposta
+                .await()
 
-            // Mapeia o resultado para a sua data class
             task.map { it.toObject(Question::class.java) }
         } catch (e: Exception) {
             Log.e("QuizDataSource", "Erro ao buscar perguntas.", e)
-            emptyList() // Retorna lista vazia em caso de erro
+            emptyList()
         }
     }
 
@@ -53,16 +51,14 @@ class QuizDataSource {
                 "description" to description
             )
 
-            // Adiciona um novo documento com ID automático
             val documentRef = db.collection("quizzes").add(quizData).await()
-            documentRef.id // Retorna o ID gerado pelo Firebase
+            documentRef.id
         } catch (e: Exception) {
             Log.e("QuizDataSource", "Erro ao salvar cabeçalho do quiz.", e)
             null
         }
     }
 
-    // NOVA FUNÇÃO: Salva uma pergunta dentro do quiz
     suspend fun saveQuestion(quizId: String, question: Question): Boolean {
         val questionData = hashMapOf(
             "questionText" to question.questionText,
@@ -72,7 +68,7 @@ class QuizDataSource {
 
         return try {
             db.collection("quizzes").document(quizId)
-                .collection("questions").add(questionData).await() // Adiciona .await()
+                .collection("questions").add(questionData).await()
             true
         } catch (e: Exception) {
             Log.e("QuizDataSource", "Erro ao salvar pergunta.", e)

@@ -50,7 +50,7 @@ fun AddQuestionScreen(navController: NavController, quizId: String) {
     var option3 by remember { mutableStateOf("") }
     var option4 by remember { mutableStateOf("") }
 
-    var correctAnswerIndex by remember { mutableStateOf(0) } // 0 = opção 1
+    var correctAnswerIndex by remember { mutableStateOf(0) }
 
     fun clearFields() {
         questionText = ""
@@ -125,7 +125,7 @@ fun AddQuestionScreen(navController: NavController, quizId: String) {
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            // Botão Add outra pergunta
+
             Button(
                 onClick = {
                     scope.launch {
@@ -143,7 +143,6 @@ fun AddQuestionScreen(navController: NavController, quizId: String) {
                 Text("Salvar e Adicionar Outra")
             }
 
-            // Botão Finalizar
             OutlinedButton(
                 onClick = {
                     scope.launch {
@@ -155,10 +154,10 @@ fun AddQuestionScreen(navController: NavController, quizId: String) {
                             if (!success) {
                                 Toast.makeText(context, "Campos inválidos. Pergunta descartada.", Toast.LENGTH_SHORT).show()
                             }
-                            // salva e navega.
+
                         }
 
-                        // volta para a lista
+
                         navController.navigate("quizList") {
                             popUpTo("quizList") { inclusive = true }
                         }

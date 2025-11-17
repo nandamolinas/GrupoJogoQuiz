@@ -28,9 +28,8 @@ fun ResultScreen(navController: NavController, score: Int, total: Int){
         )
 
         Button(onClick = {
-            // Volta para a tela inicial
+
             navController.navigate("quizList") {
-                // Limpa a pilha de navegação
                 popUpTo("quizList") { inclusive = true }
             }
         }) {
